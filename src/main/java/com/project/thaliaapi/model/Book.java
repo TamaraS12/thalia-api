@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class Book {
     private Long id;
 
     private String title;
+    private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
@@ -31,4 +33,14 @@ public class Book {
     )
     private Set<Genre> genres = new HashSet<>();
 
+    private String imageUrl;
+
+    public Book(Long id, String title, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
+
+    }
+
+    public Book() {}
 }

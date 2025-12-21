@@ -1,0 +1,25 @@
+package com.project.thaliaapi.mapper;
+
+import com.project.thaliaapi.dto.BookDto;
+import com.project.thaliaapi.model.Book;
+import org.springframework.stereotype.Component;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Component
+public class BookMapper implements GenericMapper<BookDto, Book> {
+    @Override
+    public Book toEntity(BookDto dto) {
+        return new Book(dto.id(), dto.title(), dto.imageUrl());
+    }
+
+    @Override
+    public BookDto toDto(Book entity) {
+        Set<String> genres = entity.getGenres().stream()
+                .map(genre -> genre.getName())
+                .collect(Collectors.toSet());
+
+        return new BookDto(entity.getId(), entity.getTitle(), entity.getImageUrl(), entity.getPrice(), entity.getAuthor().getName(), genres);
+    }
+}

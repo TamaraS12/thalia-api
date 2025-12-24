@@ -34,6 +34,16 @@ public class BookSpecification {
                         predicates.add(id);
                     });
 
+            Optional.ofNullable(request.title())
+                    .filter(title -> !title.isBlank())
+                    .ifPresent(title -> {
+                        Predicate titlePredicate = cb.like(
+                                cb.lower(root.get("title")),
+                                "%" + title.toLowerCase() + "%"
+                        );
+                        predicates.add(titlePredicate);
+                    });
+
             return cb.and(predicates.toArray(new Predicate[0]));
         };
     }

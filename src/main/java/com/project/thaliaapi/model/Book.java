@@ -20,6 +20,7 @@ public class Book {
 
     private String title;
     private BigDecimal price;
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")

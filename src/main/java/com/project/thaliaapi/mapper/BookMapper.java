@@ -20,6 +20,12 @@ public class BookMapper implements GenericMapper<BookDto, Book> {
                 .map(genre -> genre.getName())
                 .collect(Collectors.toSet());
 
-        return new BookDto(entity.getId(), entity.getTitle(), entity.getImageUrl(), entity.getPrice(), entity.getAuthor().getName(), genres);
+        return new BookDto(entity.getId(),
+                entity.getTitle(),
+                entity.getImageUrl(),
+                entity.getPrice(),
+                entity.getDescription(),
+                entity.getAuthor().getName(),
+                genres);
     }
 }

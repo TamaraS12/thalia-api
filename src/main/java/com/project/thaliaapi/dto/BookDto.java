@@ -7,6 +7,7 @@ public record BookDto(Long id,
                       String title,
                       String imageUrl,
                       BigDecimal price,
+                      String description,
                       String authorName,
                       Set<String> genres) {
 }

@@ -4,12 +4,15 @@ import com.project.thaliaapi.dto.BookDto;
 import com.project.thaliaapi.dto.BookSearchRequest;
 import com.project.thaliaapi.dto.SearchResponse;
 import com.project.thaliaapi.mapper.BookMapper;
+import com.project.thaliaapi.model.Book;
 import com.project.thaliaapi.repository.BookRepository;
 import com.project.thaliaapi.service.BookService;
 import com.project.thaliaapi.specification.BookSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -33,5 +36,15 @@ public class BookServiceImpl implements BookService {
                 page.getTotalElements(),
                 page.getTotalPages()
         );
+    }
+
+    @Override
+    public BookDto getById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+
+        if (book.isPresent()) {
+            return bookMapper.toDto(book.get());
+        }
+        throw new RuntimeException("Book not found");
     }
 }

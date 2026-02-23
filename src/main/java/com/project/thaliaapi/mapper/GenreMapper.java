@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class GenreMapper implements GenericMapper<GenreDto, Genre> {
     @Override
     public Genre toEntity(GenreDto dto) {
-        return new Genre(dto.id(), dto.name());
+        return new Genre(dto.name());
     }
 
     @Override

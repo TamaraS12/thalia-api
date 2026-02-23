@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class BookMapper implements GenericMapper<BookDto, Book> {
     @Override
     public Book toEntity(BookDto dto) {
-        return new Book(dto.id(), dto.title(), dto.imageUrl());
+        return new Book(dto.title(), dto.imageUrl());
     }
 
     @Override

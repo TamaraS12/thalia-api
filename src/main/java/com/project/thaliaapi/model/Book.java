@@ -36,8 +36,7 @@ public class Book {
 
     private String imageUrl;
 
-    public Book(Long id, String title, String imageUrl) {
-        this.id = id;
+    public Book(String title, String imageUrl) {
         this.title = title;
         this.imageUrl = imageUrl;
 

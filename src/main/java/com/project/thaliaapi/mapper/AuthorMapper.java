@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class AuthorMapper implements GenericMapper<AuthorDto, Author> {
     @Override
     public Author toEntity(AuthorDto dto) {
-        return new Author(dto.id(), dto.name());
+        return new Author(dto.name());
     }
 
     @Override

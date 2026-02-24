@@ -1,6 +1,7 @@
 package com.project.thaliaapi.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public record OrderDto(Long id,
@@ -8,5 +9,6 @@ public record OrderDto(Long id,
                        String city,
                        String address,
                        List<OrderItemDto> items,
-                       BigDecimal totalAmount) {
+                       BigDecimal totalAmount,
+                       LocalDate orderDate) {
 }

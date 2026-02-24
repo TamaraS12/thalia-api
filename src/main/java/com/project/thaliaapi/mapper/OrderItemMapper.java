@@ -13,6 +13,6 @@ public class OrderItemMapper implements GenericMapper<OrderItemDto, OrderItem> {
 
     @Override
     public OrderItemDto toDto(OrderItem entity) {
-        return new OrderItemDto(entity.getId(), entity.getBook().getId(), entity.getQuantity(), entity.getAmount());
+        return new OrderItemDto(entity.getId(), entity.getBook().getId(), entity.getBook().getTitle(), entity.getQuantity(), entity.getAmount());
     }
 }

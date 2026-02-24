@@ -26,6 +26,6 @@ public class OrderMapper implements GenericMapper<OrderDto, Order> {
                 .map(orderItem -> orderItemMapper.toDto(orderItem))
                 .toList();
 
-        return new OrderDto(entity.getId(), entity.getCountry(), entity.getCity(), entity.getAddress(), orderItems, entity.getTotalAmount());
+        return new OrderDto(entity.getId(), entity.getCountry(), entity.getCity(), entity.getAddress(), orderItems, entity.getTotalAmount(), entity.getOrderDate());
     }
 }

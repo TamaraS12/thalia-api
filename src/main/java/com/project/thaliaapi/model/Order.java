@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Order {
     private String city;
     private String address;
     private BigDecimal totalAmount;
+    private LocalDate orderDate;
 
     @OneToMany(
             cascade = CascadeType.ALL,

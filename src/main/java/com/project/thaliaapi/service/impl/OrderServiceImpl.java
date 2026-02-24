@@ -11,6 +11,7 @@ import com.project.thaliaapi.repository.OrderRepository;
 import com.project.thaliaapi.service.OrderService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +45,15 @@ public class OrderServiceImpl implements OrderService {
                 .toList();
 
         order.setItems(orderItems);
+        order.setOrderDate(LocalDate.now());
 
-        order = orderRepository.save(order);
-        return orderMapper.toDto(order);
+        Order savedOrder = orderRepository.save(order);
+        return orderMapper.toDto(savedOrder);
+    }
+
+    @Override
+    public List<OrderDto> getAll() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(order -> orderMapper.toDto(order)).toList();
     }
 }

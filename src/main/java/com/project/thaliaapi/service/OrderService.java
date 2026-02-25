@@ -5,7 +5,7 @@ import com.project.thaliaapi.dto.OrderDto;
 import java.util.List;
 
 public interface OrderService {
-    OrderDto add(OrderDto orderDto);
+    OrderDto add(OrderDto orderDto, String username);
 
-    List<OrderDto> getAll();
+    List<OrderDto> getAllByUser(String username);
 }

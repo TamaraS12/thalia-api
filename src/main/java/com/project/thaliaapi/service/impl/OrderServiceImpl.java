@@ -6,14 +6,16 @@ import com.project.thaliaapi.mapper.OrderMapper;
 import com.project.thaliaapi.model.Book;
 import com.project.thaliaapi.model.Order;
 import com.project.thaliaapi.model.OrderItem;
+import com.project.thaliaapi.model.User;
 import com.project.thaliaapi.repository.BookRepository;
 import com.project.thaliaapi.repository.OrderRepository;
+import com.project.thaliaapi.repository.UserRepository;
 import com.project.thaliaapi.service.OrderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -21,16 +23,19 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final BookRepository bookRepository;
     private final OrderItemMapper orderItemMapper;
+    private final UserRepository userRepository;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, BookRepository bookRepository, OrderItemMapper orderItemMapper) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, BookRepository bookRepository, OrderItemMapper orderItemMapper, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.bookRepository = bookRepository;
         this.orderItemMapper = orderItemMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
-    public OrderDto add(OrderDto orderDto) {
+    @Transactional
+    public OrderDto add(OrderDto orderDto, String username) {
         Order order = orderMapper.toEntity(orderDto);
 
         List<OrderItem> orderItems = orderDto.items().stream()
@@ -47,13 +52,20 @@ public class OrderServiceImpl implements OrderService {
         order.setItems(orderItems);
         order.setOrderDate(LocalDate.now());
 
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
+        order.setUser(user);
+
         Order savedOrder = orderRepository.save(order);
         return orderMapper.toDto(savedOrder);
     }
 
     @Override
-    public List<OrderDto> getAll() {
-        List<Order> orders = orderRepository.findAll();
+    public List<OrderDto> getAllByUser(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
+
+        List<Order> orders = orderRepository.getAllByUserId(user.getId());
         return orders.stream().map(order -> orderMapper.toDto(order)).toList();
     }
 }

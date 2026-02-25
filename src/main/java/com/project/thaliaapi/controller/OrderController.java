@@ -2,6 +2,7 @@ package com.project.thaliaapi.controller;
 
 import com.project.thaliaapi.dto.OrderDto;
 import com.project.thaliaapi.service.OrderService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +17,15 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderDto add(@RequestBody OrderDto order) {
-        return orderService.add(order);
+    public OrderDto add(@RequestBody OrderDto order,
+                        Authentication authentication) {
+        String username = authentication.getName();
+        return orderService.add(order, username);
     }
 
     @GetMapping
-    public List<OrderDto> getAll(){
-        return orderService.getAll();
+    public List<OrderDto> getAll(Authentication authentication){
+        String username = authentication.getName();
+        return orderService.getAllByUser(username);
     }
 }

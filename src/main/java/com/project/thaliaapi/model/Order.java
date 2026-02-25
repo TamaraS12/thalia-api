@@ -31,6 +31,10 @@ public class Order {
     @JoinColumn(name = "order_id")
     private List<OrderItem> items = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Order(String country, String city, String address, BigDecimal totalAmount) {
         this.country = country;
         this.city = city;

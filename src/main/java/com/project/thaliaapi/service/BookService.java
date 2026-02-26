@@ -2,10 +2,11 @@ package com.project.thaliaapi.service;
 
 import com.project.thaliaapi.dto.BookDto;
 import com.project.thaliaapi.dto.BookSearchRequest;
-import com.project.thaliaapi.dto.SearchResponse;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BookService {
-    SearchResponse<BookDto> search(BookSearchRequest request, Pageable pageable);
+    List<BookDto> search(BookSearchRequest request, Pageable pageable);
     BookDto getById(Long id);
 }

@@ -18,7 +18,7 @@ public class JwtService {
         return Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1h
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 8)) // 8h
                 .signWith(getSignKey())
                 .compact();
     }
